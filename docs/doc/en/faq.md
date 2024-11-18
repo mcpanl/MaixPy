@@ -172,3 +172,14 @@ The lag is typically due to using WiFi transmission. When the signal is weak or 
 * Switch to a wired connection; refer to the Quick Start Guide for details.
 * Lower the image resolution by reducing the size of `img` in the code with `disp.show(img)`.
 
+## Error Message When Running Application: Runtime error: mmf vi init failed
+
+The error message indicates that camera initialization failed. Possible reasons include:1. The camera is occupied by another application. 2.The camera's ribbon cable may be loose. 3. The runtime library is not installed.
+Solution Steps:
+- Check if both the maixvision program and the board's built-in program are running at the same time. Ensure that only one program is using the camera. (Note: Usually, when maixvision is connected, the built-in program on the board will exit automatically.)
+- Remove and reinsert the camera ribbon cable to ensure a proper connection.
+- Update to the latest runtime library.
+
+## When running the application, you see: maix multi-media driver released or maix multi-media driver destroyed
+
+This is not an error message. It is a log message indicating that the multimedia framework is releasing resources, it is usually printed when the program exits.
