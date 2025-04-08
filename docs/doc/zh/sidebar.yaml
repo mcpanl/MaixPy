@@ -42,6 +42,8 @@ items:
         label: 寻找直线
     -   file: vision/qrcode.md
         label: 二维码识别
+    -   file: vision/find_barcodes.md
+        label: 条形码识别
     -   file: vision/apriltag.md
         label: AprilTag 识别
     -   file: vision/opencv.md
@@ -59,8 +61,12 @@ items:
         label: YOLO11/v8/v5 物体检测
     -   file: vision/face_detection.md
         label: 人脸及关键点检测
+    -   file: vision/face_landmarks.md
+        label: 人脸多关键点检测
     -   file: vision/face_recognition.md
         label: 人脸识别
+    -   file: vision/face_emotion.md
+        label: 人脸表情情绪识别
     -   file: vision/body_key_points.md
         label: 人体关键点检测
     -   file: vision/segmentation.md
@@ -73,6 +79,14 @@ items:
         label: 物体轨迹跟踪和计数
     -   file: vision/ocr.md
         label: OCR 文字识别
+    -   file: vision/detect_obb.md
+        label: 带旋转角度的检测(OBB)
+    -   file: vision/hand_landmarks.md
+        label: 手部关键点检测
+    -   file: vision/body_pose_classification.md
+        label: 人体姿态分类器
+    -   file: vision/hand_gesture_classification.md
+        label: 手势分类器
     -   file: vision/maixhub_train.md
         label: MaixHub 在线训练 AI 模型
     -   file: vision/customize_model_yolov5.md
@@ -81,13 +95,15 @@ items:
         label: 离线训练 YOLO11/YOLOv8 模型
     -   file: ai_model_converter/maixcam.md
         label: ONNX 模型转给 MaixCAM 用
+    -   file: pro/datasets.md
+        label: 哪里找模型和数据集
     -   file: pro/customize_model.md
         label: 移植新模型
 
 -   label: AI 听觉
     items:
     -   file: audio/record.md
-        label: 录音
+        label: 录入音频
     -   file: audio/play.md
         label: 播放音频
     -   file: audio/recognize.md
@@ -102,6 +118,8 @@ items:
         label: AI 声音分类
     -   file: pro/customize_model.md
         label: 移植新模型
+    -   file: audio/deploy_online_recognition.md
+        label: 部署在线语音识别环境
 
 -   label: 视频
     items:
@@ -115,6 +133,8 @@ items:
         label: RTSP 串流
     -   file: video/rtmp_streaming.md
         label: RTMP 串流
+    -   file: video/uvc_streaming.md
+        label: UVC 串流
 
 -   label: 网络通信
     items:
@@ -141,26 +161,30 @@ items:
 -   label: 片上外设
     items:
     -   file: peripheral/pinmap.md
-        label: PINMAP 使用
+        label: PINMAP IO 功能映射
     -   file: peripheral/gpio.md
         label: GPIO 和 点灯
+    -   file: peripheral/key.md
+        label: Key 按键事件
     -   file: peripheral/uart.md
-        label: UART 串口使用
+        label: UART 串口
     -   file: peripheral/i2c.md
-        label: I2C 使用
+        label: I2C
     -   file: peripheral/pwm.md
-        label: PWM 使用
+        label: PWM
     -   file: peripheral/spi.md
-        label: SPI 使用
+        label: SPI
     -   file: peripheral/wdt.md
-        label: WDT 看门狗使用
+        label: WDT 看门狗
     -   file: peripheral/adc.md
-        label: ADC 使用
+        label: ADC 模数转换
     -   file: peripheral/hid.md
-        label: HID Device 使用
+        label: 作为 USB HID 设备
 
 -   label: 片外模块
     items:
+    -   file: kit/microscope.md
+        label: 显微镜套件
     -   file: modules/temp_humi.md
         label: 温湿度传感器
     -   file: modules/acc.md
@@ -173,8 +197,12 @@ items:
         label: TOF 测距
     -   file: modules/thermal_cam.md
         label: 热成像摄像头
-        file: modules/pmu.md
+    -   file: modules/pmu.md
         label: 电源管理单元
+    -   file: modules/fp5510.md
+        label: 音圈电机 FP5510
+    -   file: modules/spilcd.md
+        label: SPI LCD 屏幕
 
 -   label: 项目实战
     items:

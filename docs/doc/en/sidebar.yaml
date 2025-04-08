@@ -42,6 +42,8 @@ items:
         label: Line tracking
     -   file: vision/qrcode.md
         label: QRcode identity
+    -   file: vision/find_barcodes.md
+        label: Barcode identity
     -   file: vision/apriltag.md
         label: AprilTag identity
     -   file: vision/opencv.md
@@ -59,8 +61,12 @@ items:
         label: YOLO11/v8/v5 object detection
     -   file: vision/face_detection.md
         label: Face and keypoints detection
+    -   file: vision/face_landmarks.md
+        label: Face multi landmarks detection
     -   file: vision/face_recognition.md
         label: Face recognition
+    -   file: vision/face_emotion.md
+        label: Face emotion
     -   file: vision/body_key_points.md
         label: Human critical point detection
     -   file: vision/segmentation.md
@@ -72,7 +78,15 @@ items:
     -   file: vision/object_track.md
         label: Object tracking and counting
     -   file: vision/ocr.md
-        label: OCR 
+        label: OCR
+    -   file: vision/detect_obb.md
+        label: Detect with angle(OBB)
+    -   file: vision/hand_landmarks.md
+        label: Hand landmarks
+    -   file: vision/body_pose_classification.md
+        label: Human pose classifier
+    -   file: vision/hand_gesture_classification.md
+        label: Hand geature classifier
     -   file: vision/maixhub_train.md
         label: MaixHub online AI training
     -   file: vision/customize_model_yolov5.md
@@ -81,6 +95,8 @@ items:
         label: YOLO11/v8 model offline training
     -   file: ai_model_converter/maixcam.md
         label: ONNX model to MaixCAM's
+    -   file: pro/datasets.md
+        label: Where to find models & datasets
     -   file: pro/customize_model.md
         label: Customize new AI model
 
@@ -101,7 +117,8 @@ items:
         label: Speech synthesis
     -   file: pro/customize_model.md
         label: Customize new AI model
-
+    -   file: audio/deploy_online_recognition.md
+        label: Deploy online speech recognition
 -   label: Video
     items:
     -   file: video/record.md
@@ -114,6 +131,8 @@ items:
         label: RTSP streaming
     -   file: video/rtmp_streaming.md
         label: RTMP streaming
+    -   file: video/uvc_streaming.md
+        label: UVC streaming
 
 -   label: Network
     items:
@@ -143,6 +162,8 @@ items:
         label: PINMAP
     -   file: peripheral/gpio.md
         label: GPIO
+    -   file: peripheral/key.md
+        label: Key
     -   file: peripheral/uart.md
         label: UART
     -   file: peripheral/i2c.md
@@ -160,6 +181,8 @@ items:
 
 -   label: Off-chip modules
     items:
+    -   file: moudles/microscope.md
+        label: Microscope kit
     -   file: modules/temp_humi.md
         label: Temperature and humidity
     -   file: modules/acc.md
@@ -172,8 +195,12 @@ items:
         label: TOF
     -   file: modules/thermal_cam.md
         label: Thermal imaging
-        file: modules/pmu.md
+    -   file: modules/pmu.md
         label: Power Management Unit
+    -   file: modules/fp5510.md
+        label: Voice Coil Motor FP5510
+    -   file: modules/spilcd.md
+        label: SPI LCD Screen
 
 -   label: Projects
     items:

@@ -173,7 +173,7 @@ English | [中文](../)
 
 <div class="mt-16"></div>
 
-<img class="text-center" src="/static/image/maixcam_pro.png">
+<img class="text-center" src="/static/image/maixcams.png">
 
 <div class="mt-6"></div>
 
@@ -306,6 +306,8 @@ You can create new features using the rich API provided by MaixPy.
 
 </div>
 
+<iframe style="width:100%;min-height:30em" src="https://www.youtube.com/embed/qV1lw0UVUYI?si=g3xUX5v3iT9r7RxJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 <div class="flex flex-wrap justify-between">
     <div class="feature_item">
         <div class="img_video">
@@ -381,9 +383,27 @@ You can create new features using the rich API provided by MaixPy.
     </div>
     <div class="feature_item">
         <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/maixcam_face_landmarks.mp4"></video>
+            <p class="feature">AI Face Landmarks</p>
+            <p class="description">Detect face landmarks, replace face</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
             <img src="/static/image/body_keypoint.jpg">
             <p class="feature">AI Body Keypoint Detection</p>
             <p class="description">Posture recognition, body-sensing games</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/hands_landmarks.mp4"></video>
+            <p class="feature">AI Hand keypoints</p>
+            <p class="description">Detect hand keypoints and recognize gesture</p>
         </div>
         <div>
         </div>

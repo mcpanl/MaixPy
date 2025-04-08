@@ -50,6 +50,11 @@ labels = person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, tr
 
 可以看到这里有三个`conv`，后面的计算均由 CPU 进行，我们量化时就采取这几个`conv`的输出作为模型的最后输出，在这里输出名分别叫`/model.24/m.0/Conv_output_0,/model.24/m.1/Conv_output_0,/model.24/m.2/Conv_output_0`。
 
+YOLO11/YOLOv8 请看[离线训练 YOLO11/YOLOv8](../vision/customize_model_yolov8.md).
+
+分类模型一般来说取最后一个输出名称就行，不过如果有`osftmax`的话，建议不把`softmax`包含在模型里面，即取`softmax`前一层的输出名，下图是没有`softmax`层的所以直接取最后一层即可。
+![](../../assets/mobilenet_top.png)
+
 
 ## 安装模型转换环境
 
@@ -108,7 +113,7 @@ docker run --privileged --name tpu-env -v /home/$USER/data:/home/$USER/data -it 
 pip install tpu_mlir*.whl # 这里就是下载文件的名字
 ```
 
-执行`model_transform.py` 会有打印帮助信息就算是安装成功了。
+在容器内**直接输入**`model_transform.py`回车执行会有打印帮助信息就算是安装成功了。
 
 ## 编写转换脚本
 

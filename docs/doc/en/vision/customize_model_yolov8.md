@@ -35,6 +35,11 @@ To ensure our model can be used on MaixPy (MaixCAM), it must go through the foll
 * Convert the `onnx` model into a `MUD` file supported by MaixPy, as described in the [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) article.
 * Use MaixPy to load and run the model.
 
+## Where to Find Datasets for Training
+
+Please refer to [Where to find datasets](../pro/datasets.md)
+
+
 ## Reference Articles
 
 Since this process is quite general, this article only provides an overview. For specific details, please refer to the **[YOLO11 / YOLOv8 official code and documentation](https://github.com/ultralytics/ultralytics)** (**recommended**) and search for training tutorials to eventually export an ONNX file.
@@ -66,13 +71,20 @@ print(path)
 
 Then run `python export_onnx.py yolov8n.pt 320 224` to export the `onnx` model. Here, we have redefined the input resolution. The model was originally trained with `640x640`, but we use `320x224` to improve the processing speed and match the MaixCAM's screen aspect ratio for convenient display. You can set the resolution according to your own needs.
 
+Espetially for NVIDIA users. You need to check onnxruntime version at your desktop venv and in tpu-mlir docker container. If they don't match you will see several "unimplemeted" errors. Jut update runtime in container 
+
+```shell
+pip install onnxruntime==<version>
+```
+`<version>` is version equals your desktop version
+
 ## Converting to a Model Supported by MaixCAM and MUD File
 
 MaixPy/MaixCDK currently supports YOLOv8 / YOLO11 for object detection, YOLOv8-pose / YOLO11-pose for keypoint detection, and YOLOv8-seg / YOLO11-seg for segmentation (as of 2024-10-10).
 
 Follow [MaixCAM Model Conversion](../ai_model_converter/maixcam.md) to convert the model.
 
-Pay attention to the model output node selection:
+Pay attention to the selection of the model output nodes (note that the numerical values of your model might not be exactly the same; refer to the diagram below to identify the corresponding nodes):
 * Object detection:
   * YOLOv8 extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0` from ONNX as outputs.
   * YOLO11 extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0`.
@@ -82,8 +94,15 @@ Pay attention to the model output node selection:
 * Image segmentation:
   * YOLOv8-seg extracts `/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_output_0,/model.22/Concat_output_0,output1`.
   * YOLO11-seg extracts `/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_output_0,/model.23/Concat_output_0,output1`.
+* OBB Detection:
+  * YOLOv8 extracts`/model.22/dfl/conv/Conv_output_0,/model.22/Sigmoid_1_output_0,/model.22/Sigmoid_output_0`as outputs.
+  * YOLO11 extracts`/model.23/dfl/conv/Conv_output_0,/model.23/Sigmoid_1_output_0,/model.23/Sigmoid_output_0`as outputs.
 
-![](../../assets/yolov8_out1.jpg) ![](../../assets/yolov8_out2.jpg)
+YOLOv8/YOLO11 output nodes:
+![](../../assets/yolov8_out.jpg)
+
+YOLOv8/YOLO11 OBB output nodes:
+[](../../assets/yolo11_out_obb.jpg)
 
 For object detection, the MUD file would be as follows (replace `yolo11` for YOLO11):
 

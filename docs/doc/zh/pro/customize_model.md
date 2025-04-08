@@ -15,6 +15,16 @@ update:
 因为视觉应用比较多，以下将分为视觉应用和其它应用进行讲解。
 
 
+## 如果 MaixPy 已经支持的框架，只是数据集不同
+
+比如 MaixPy 已经支持了 YOLO11 检测，但是你的数据集不同，这种情况下，你只需要准备好数据集，然后训练模型，导出模型即可。
+
+还有一个偷懒的最快的方式，就是先去网上找找有没有人已经训练好了模型或者开源了模型，下载转一下格式就能用了，或者基于其继续训练。
+举个例子:
+比如要识别火焰，在网上一搜，找到[Abonia1/YOLOv8-Fire-and-Smoke-Detection](https://github.com/Abonia1/YOLOv8-Fire-and-Smoke-Detection) 这个项目分享了基于 YOLOv8 的火焰和烟雾检测模型，下载下来，导出成 ONNX 格式再转换为 MaixPy 支持的格式即可。
+
+可以上传到[MaixHub 模型库](https://maixhub.com/model/zoo)分享给更多人使用，也可以找其他人分享的模型。
+
 ## 在 Python 层面添加视觉 AI 模型和算法
 
 对于视觉，一般来说是对图像进行时别，即：
@@ -80,8 +90,10 @@ def parse_str_values(value : str) -> list[float]:
       return [float(value)]
 
 def load_labels(model_path, path_or_labels : str):
-    path = os.path.join(os.path.dirname(model_path), path_or_labels)
-    if os.path.exists(path):
+    path = ""
+    if not ("," in path_or_labels or " " in path_or_labels or "\n" in path_or_labels):
+      path = os.path.join(os.path.dirname(model_path), path_or_labels)
+    if path and os.path.exists(path):
       with open(path, encoding = "utf-8") as f:
         labels0 = f.readlines()
     else:
@@ -97,7 +109,8 @@ class My_Classifier:
       self.extra_info = self.model.extra_info()
       self.mean = parse_str_values(self.extra_info["mean"])
       self.scale = parse_str_values(self.extra_info["scale"])
-      self.labels = load_labels(model, self.extra_info["labels"])
+      self.labels = self.model.extra_info_labels()
+      # self.labels = load_labels(model, self.extra_info["labels"]) # same as self.model.extra_info_labels()
 
     def classify(self, img : image.Image):
       outs = self.model.forward_image(img, self.mean, self.scale, copy_result = False)

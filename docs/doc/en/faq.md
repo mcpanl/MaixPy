@@ -130,6 +130,9 @@ Here, the `model` is specified as the `yolov5s_224_int8.cvimodel` file relative 
 
 This error occurs because MaixVision's code hinting feature cannot find the `maix` module. It's important to understand that MaixVision's code hinting relies on the local Python packages on your computer, while the code execution depends on the Python packages on the device. To enable MaixVision's code hinting, you need to install Python and the `MaixPy` package on your computer. For more details, refer to the [MaixVision User Documentation](./basic/maixvision.md).
 
+## MaixVision how to import from another .py file
+
+Read documentation of [MaixVision](./basic/maixvision.md) carefully.
 
 ## MaixCAM starts very slowly, even exceeding 1 minute, or the screen flickers
 
@@ -235,3 +238,26 @@ with open("/root/a.txt", "r") as f:
 
 Similarly, other functions that are not covered in the documentation can be searched to check if they are included in Python’s built-in libraries, which you can call directly.
 
+### Error: camera read timeout during image capture
+
+This error might occur when the camera's image buffer does not contain new images, causing a timeout during image capture. In most cases, this happens because the image is read too quickly, or multiple camera channels are attempting to read simultaneously. For instance, if one camera channel is bound to an RTSP service while another thread tries to capture images from a second camera channel.
+
+Solution: Catch the exception, wait for a short period, and then retry the capture. Example code:
+
+```python
+img = None
+try:
+    img = cam.read()
+except:
+    time.sleep_ms(10)
+    continue
+```
+
+## VI_VENC_GetStream failed with 0xc0078012 during program runtime
+This issue occurs because the program did not exit properly last time, causing the VENC module resources to not be released. As a result, the application cannot obtain the VENC resources when it starts again. The current solutions are:
+
+1. Restart the system.
+
+2. Turn off the MaixVision preview view or switch to the PNG stream.
+
+Since this is a legacy issue at the underlying framework level, it can currently only be resolved at the application level. Efforts should be made to ensure that the program exits normally.

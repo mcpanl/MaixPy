@@ -13,6 +13,18 @@ Besides the built-in AI algorithms and models, MaixPy is highly extensible, allo
 
 Due to the prevalence of visual applications, this guide will be divided into sections for visual applications and other applications.
 
+
+## If MaixPy Already Supports the Framework but the Dataset is Different
+
+For instance, if MaixPy already supports YOLO11 detection, but your dataset is different, you only need to prepare your dataset, train the model, and export it.
+
+Another quick and lazy method is to first search online to see if someone has already trained or open-sourced a model. If you find one, simply download it and convert the format for use, or continue training based on it. 
+
+For example:
+If you want to detect fire, a quick search online might lead you to the project [Abonia1/YOLOv8-Fire-and-Smoke-Detection](https://github.com/Abonia1/YOLOv8-Fire-and-Smoke-Detection), which shares a fire and smoke detection model based on YOLOv8. You can download it, export it to the ONNX format, and then convert it to a format supported by MaixPy.
+
+You can also upload your model to the [MaixHub Model Library](https://maixhub.com/model/zoo) to share it with more people, or find models shared by others there.
+
 ## Adding Visual AI Models and Algorithms in Python
 
 For visual applications, the usual task is image recognition, specifically:
@@ -71,24 +83,65 @@ import numpy as np
 def parse_str_values(value: str) -> list[float]:
     return [float(v) for v in value.split(",")]
 
-def load_labels(model_path, path_or_labels: str):
-    path = os.path.join(os.path.dirname(model_path), path_or_labels)
-    labels0 = open(path, encoding="utf-8").readlines() if os.path.exists(path) else path_or_labels.split(",")
-    return [label.strip() for label in labels0]
+def load_labels(model_path, path_or_labels : str):
+    path = ""
+    if not ("," in path_or_labels or " " in path_or_labels or "\n" in path_or_labels):
+      path = os.path.join(os.path.dirname(model_path), path_or_labels)
+    if path and os.path.exists(path):
+      with open(path, encoding = "utf-8") as f:
+        labels0 = f.readlines()
+    else:
+      labels0 = path_or_labels.split(",")
+    labels = []
+    for label in labels0:
+        labels.append(label.strip())
+    return labels
 
 class My_Classifier:
-    def __init__(self, model: str):
-      self.model = nn.NN(model, dual_buff=False)
+    def __init__(self, model : str):
+      self.model = nn.NN(model, dual_buff = False)
       self.extra_info = self.model.extra_info()
       self.mean = parse_str_values(self.extra_info["mean"])
       self.scale = parse_str_values(self.extra_info["scale"])
-      self.labels = load_labels(model, self.extra_info["labels"])
+      self.labels = self.model.extra_info_labels()
+      # self.labels = load_labels(model, self.extra_info["labels"]) # same as self.model.extra_info_labels()
 
-    def classify(self, img: image.Image):
-      outs = self.model.forward_image(img, self.mean, self.scale, copy_result=False)
+    def classify(self, img : image.Image):
+      outs = self.model.forward_image(img, self.mean, self.scale, copy_result = False)
+      # 后处理， 以分类模型为例
       for k in outs.keys():
         out = nn.F.softmax(outs[k], replace=True)
-        out = tensor.tensor_to_numpy_float32(out, copy=False).flatten()
+        out = tensor.tensor_to_numpy_float32(out, copy = False).flatten()
+        max_idx = out.argmax()
+        return self.labels[max_idx], out[max_idx]def load_labels(model_path, path_or_labels : str):
+    path = ""
+    if not ("," in path_or_labels or " " in path_or_labels or "\n" in path_or_labels):
+      path = os.path.join(os.path.dirname(model_path), path_or_labels)
+    if path and os.path.exists(path):
+      with open(path, encoding = "utf-8") as f:
+        labels0 = f.readlines()
+    else:
+      labels0 = path_or_labels.split(",")
+    labels = []
+    for label in labels0:
+        labels.append(label.strip())
+    return labels
+
+class My_Classifier:
+    def __init__(self, model : str):
+      self.model = nn.NN(model, dual_buff = False)
+      self.extra_info = self.model.extra_info()
+      self.mean = parse_str_values(self.extra_info["mean"])
+      self.scale = parse_str_values(self.extra_info["scale"])
+      self.labels = self.model.extra_info_labels()
+      # self.labels = load_labels(model, self.extra_info["labels"]) # same as self.model.extra_info_labels()
+
+    def classify(self, img : image.Image):
+      outs = self.model.forward_image(img, self.mean, self.scale, copy_result = False)
+      # 后处理， 以分类模型为例
+      for k in outs.keys():
+        out = nn.F.softmax(outs[k], replace=True)
+        out = tensor.tensor_to_numpy_float32(out, copy = False).flatten()
         max_idx = out.argmax()
         return self.labels[max_idx], out[max_idx]
 

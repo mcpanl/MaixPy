@@ -55,7 +55,9 @@ You can also get greyscale images
 
 ## Setting the frame rate of the camera
 
-Currently the camera supports `30fps`, `60fps` and `80fps` configurations, the frame rate is selected by the `width`, `height`, `fps` parameters passed when creating the `Camera` object, currently the maximum supported resolution is `1280x720` under `60/80fps`, and the maximum supported resolution is `2560x1440` under `30fps`.
+The GC4653 supports a maximum of three configurations: `2560x1440 30fps`, `1280x720 60fps`, and `1280x720 80fps`. The frame rate is selected based on the width, height, and fps parameters passed when creating the Camera object.
+
+The OS04A10 supports a maximum of two configurations: `2560x1440 30fps` and `1280x720 90fps`. The `1280x720` resolution is achieved by center-cropping the `2560x1440` image.
 
 ### Setting the frame rate to 30 fps
 
@@ -164,6 +166,19 @@ cam.luma(50) # Set brightness, range [0, 100]
 cam.constrast(50) # set contrast, range [0, 100]
 cam.saturation(50) # Set the saturation, range [0, 100].
 ```
+
+### Reading Raw Images
+
+Note that the output `raw` image is the original `Bayer` image, and the format of the `Bayer` image may vary depending on the camera module.
+
+```python
+cam = camera.Camera(raw=true)
+raw_img = cam.read_raw()
+print(raw_img)
+```
+
+If you need to open the `raw` image in third-party software, additional conversion on the PC side is required. You can refer to the example code in [bayer_to_tiff](https://github.com/sipeed/MaixPy/blob/dev/examples/tools/bayer_to_tiff.py).
+
 
 
 ## Using a USB Camera

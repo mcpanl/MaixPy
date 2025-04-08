@@ -126,6 +126,12 @@ h1 {
 .code_wrapper {
     overflow: auto;
 }
+.biliiframe {
+    width: 100%;
+    min-height: 40em;
+    border-radius: 0.5em;
+    border: 1em solid white;
+}
 @media screen and (min-width: 1280px) {
     .md_page #page_content > div
     {
@@ -136,6 +142,10 @@ h1 {
 @media screen and (max-width: 768px) {
     .code_wrapper {
         font-size: 0.6em;
+    }
+    .biliiframe {
+        width: 100%;
+        min-height: 20em;
     }
 }
 </style>
@@ -174,7 +184,7 @@ h1 {
 
 <div class="mt-16"></div>
 
-<img class="text-center" src="/static/image/maixcam_pro.png">
+<img class="text-center" src="/static/image/maixcams.png">
 
 <div class="mt-6"></div>
 
@@ -298,11 +308,13 @@ MaixVision
 
 ## 更多特性
 
-<div class="flex flex-col justify-center items-center">
+<div class="flex flex-col justify-center items-center w-full">
 
 以下为部分功能简介，更多到[社区](#community)找到更多
 
 基于 MaixPy 提供的丰富 API 可以创造出更多新功能
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=113485669204279&bvid=BV1ncmRYmEDv&cid=26768769718&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="biliiframe"></iframe>
 
 </div>
 
@@ -381,9 +393,27 @@ MaixVision
     </div>
     <div class="feature_item">
         <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/maixcam_face_landmarks.mp4"></video>
+            <p class="feature">AI 人脸关键点</p>
+            <p class="description">检测人脸关键点，面部特征/动作识别，AI 换脸</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
             <img src="/static/image/body_keypoint.jpg">
             <p class="feature">AI 人体关键点检测</p>
             <p class="description">姿态识别、体感游戏</p>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="feature_item">
+        <div class="img_video">
+            <video playsinline controls autoplay loop muted preload src="/static/video/hands_landmarks.mp4"></video>
+            <p class="feature">AI 手部关键点</p>
+            <p class="description">检测手部关键点，手势识别</p>
         </div>
         <div>
         </div>
