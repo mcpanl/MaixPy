@@ -1,6 +1,6 @@
 #pragma once
 
-#include "maix_image.hpp"
+#include "z_image.hpp"
 #include "pybind11/pybind11.h"
 #include "pybind11/numpy.h"
 
